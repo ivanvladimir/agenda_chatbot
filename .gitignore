@@ -112,3 +112,6 @@ ENV/
 pyvenv.cfg
 .venv
 pip-selfcheck.json
+
+# app.py
+conversations.json

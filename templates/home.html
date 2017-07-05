@@ -1,0 +1,32 @@
+{% extends "default.html" %}
+{% block content %}
+<section class="hero is-primary is-bold is-large">
+	<div class="hero-body">
+		<div class="columns is-mobile">
+  			<div class="column is-half is-offset-one-quarter">
+
+<form action="/chat" method="GET">
+<div class="field">
+  <label class="label">Nombre de usuario</label>
+  <p class="control has-icons-left has-icons-right">
+    <input class="input is-success" type="text" placeholder="Text input" value="pepe" name="username">
+    <span class="icon is-small is-left">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="icon is-small is-right">
+      <i class="fa fa-check"></i>
+    </span>
+  </p>
+</div>
+
+<div class="field">
+  <p class="control">
+    <button class="button is-primary">Comenzar</button>
+  </p>
+</div>
+</form>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="Chatbot spaCy" content="Test">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.1/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <section class="hero is-white">
+      <nav class="nav">
+        <div class="nav-left">
+          <a href="/" class="nav-item">
+            <h6 class="subtitle">
+              <strong>Chatbot spaCy</strong>
+            </h6>
+          </a>
+        </div>
+        <div class="nav-item">
+          <div class="field is-grouped">
+            <p class="control">
+              <a href="/" class="button is-primary is-outlined">
+                <span>Terminar</span>
+              </a>
+            </p>
+			<p class="control">
+              <a href="/about" class="button is-primary is-outlined">
+                <span>Acerca</span>
+              </a>
+            </p>
+         </div>
+        </div>
+      </nav>
+    </section>
+    {% block content %}
+    {% endblock %}
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-right">
+      <p>
+			<p>Copyright Ivan Meza, 2017</p>
+      </p>
+    </div>
+  </div>
+</footer>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </body>
+</html>
+

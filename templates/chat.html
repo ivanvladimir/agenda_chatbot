@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="Chatbot pyAIML" content="Test">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.1/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.slim.js"></script>
+	<script type="text/javascript" charset="utf-8">
+        $(document).ready(function(){
+            namespace = '/ask';
+            var msgCount = 1;
+            var socket = io.connect('http://' + document.domain + ':' + location.port + namespace);
+            socket.on('response', function(msg) {
+                $('#log').append('<br>' + $('<div/>').text('bot #' + msgCount + ': ' + msg.data).html());
+                msgCount += 1;
+            });
+            $('form#emit').submit(function(event) {
+                socket.emit('message', {data: '{{username}}:'+$('#emit_data').val()});
+                $('#log').append('<br>' + $('<div/>').text('{{username}} #' + msgCount + ': ' + $('#emit_data').val()).html());
+                msgCount += 1;
+ 				$('#emit_data').val("");
+                return false;
+            });
+        });
+    </script>
+
+  </head>
+  <body>
+    <section class="hero is-white">
+      <nav class="nav">
+        <div class="nav-left">
+          <a href="/" class="nav-item">
+            <h6 class="subtitle">
+              <strong>Chatbot spaCy</strong>
+            </h6>
+          </a>
+        </div>
+        <div class="nav-item">
+          <div class="field is-grouped">
+            <p class="control">
+              <a href="/" class="button is-primary is-outlined">
+                <span>Terminar</span>
+              </a>
+            </p>
+			<p class="control">
+              <a href="/about" class="button is-primary is-outlined">
+                <span>Acerca</span>
+              </a>
+            </p>
+         </div>
+        </div>
+      </nav>
+    </section>
+
+	<section class="section">
+    <div class="container">
+
+
+	<h1  class="title">Agenda una cita con nuestro chatbot<h1>
+	<h2  class="subtitle">Pronto será más listo<h2>
+
+
+ 
+    <form id="emit" method="POST" action='#'>
+		<div class="field">
+  		<p class="control">
+    		<input class="input" type="text" name="emit_data" id="emit_data" placeholder="Escribe algo">
+  		</p>
+		</div>
+		<p class="control">
+    		<button  type="submit"   class="button is-primary">Enviar</button>
+  		</p>
+    </form>
+
+	</div>
+	</section>
+
+	<section class="section">
+    <div class="container">
+
+ 
+	<article class="message">
+  		<div class="message-header">
+    		<p>Historia de la conversación</p>
+  		</div>
+  		<div class="message-body" id='log'/>
+	</article>
+
+	</div>
+	</section>
+
+			</div>
+		</div>
+	</div>
+</section>
+
+
+</body>
+</html>
