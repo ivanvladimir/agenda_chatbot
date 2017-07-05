@@ -4,15 +4,30 @@
 	<div class="hero-body">
 		<div class="columns is-mobile">
   			<div class="column is-half is-offset-one-quarter">
-<p>
-Este es un chatbot simple construido en python con los siguientes elementos:
-</p>
+<h2>
+Agenda para {{username}}
+</h2>
 
-<ul>
-	<li>Interfaz: basada en Flask y la librería socketio</li>
-	<li>Inteligencia: basada en reglas del tipo pyAMIM</li>
-	<li>Conversaciones: todas las conversaciones se guardan en un json</li>
-</ul>
+	<table class="table">
+	  <thead>
+	      <tr>
+		        <th>Evento</th>
+		        <th>Fecha</th>
+		        <th>Hora</th>
+		        <th>Lugar</th>
+			</tr>
+	 </thead>
+	 <tbody>
+		{% for ev in events %}
+	      <tr>
+		  		<th>{{ev.about}}</th>
+		  		<th>{{ev.date}}</th>
+		  		<th>{{ev.hour}}</th>
+		  		<th>{{ev.place}}</th>
+		  </tr>
+		{% endfor %}
+	 </tbody>
+	 </table>
 
 			</div>
 		</div>

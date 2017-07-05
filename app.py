@@ -6,14 +6,10 @@ from flask import Flask, redirect, url_for, render_template, session, request
 from flask_socketio import emit, SocketIO
 from tinydb import TinyDB, Query
 import argparse
+import dateparser
 import os
 
-
-STATE={
-    'date':False,
-    'hour':False,
-    'place': False
-}
+STATES={}
 
 
 # Carga aplicación Flask
@@ -25,6 +21,27 @@ socketio = SocketIO(app)
 # Carga base de datos de conversaciones
 db = TinyDB('conversations.json')
 Usuario= Query()
+
+def new_state():
+    return {
+        'date':False,
+        'hour':False,
+        'place': False,
+        'about': False
+    }
+
+# Función para agregar un evento a un usuario
+def insert_event(username):
+    user=db.search(Usuario.user == username)
+    if len(user)==0:
+      user=db.insert({'user':username,'conversations':[[]],'events':[STATES[username]]})
+    else:
+      user=user[0]
+    events=user['events']
+    events.append(STATES[username])
+    conv=user['conversations']
+    db.update({'conversations':conv,'events':events},eids=[user.eid])
+
 
 # Página principa.
 @app.route('/')
@@ -43,13 +60,14 @@ def calendar():
   if not len(username)>0:
       username='desconocido'
   user=db.search(Usuario.user == username)
+  print("hello")
   if len(user)==0:
       user=db.insert({'user':username,'conversations':[[]],'events':[]})
       user=db.get(eid=user)
   else:
       user=user[0]
   events=user['events']
-  return render_template('agenda.html',username=username, user['events'])
+  return render_template('agenda.html',username=username, events=user['events'])
 
 
 # Página con chat
@@ -68,7 +86,7 @@ def chat():
       conv=user['conversations']
       conv.append([])
       db.update({'conversations':conv,'events':events},eids=[user.eid])
-
+  STATES[username]=new_state()
   return render_template('chat.html',username=username)
 
 # Mensajes con chat
@@ -82,12 +100,17 @@ def receive_message(message):
     else:
       user=user[0]
     
+    # PROCESSAR MENSAJE DE USUARIO
+    
+
     # REVISAR ESTADO
-    if not STATE['date']:
+    if not STATES[username]['date']:
         ans="¿Cúando?"
-    elif not STATE['hour']:
+    elif not STATES[username]['hour']:
         ans="¿A qué hora?"
-    elif not STATE['place']:
+    elif not STATES[username]['place']:
+        ans="¿Dónde?"
+    elif not STATES[username]['about']:
         ans="¿Dónde?"
     else:
         ans="No entendí"
