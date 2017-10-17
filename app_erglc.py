@@ -22,7 +22,13 @@ Usuario= Query()
 
 exp_regs=[
     (re.compile(r'hola'),'hola, cúal es tu nombre'),
-    (re.compile(r'mi nombre es (.*)'),'mucho gusto {0}'),
+    (re.compile(r'mi nombre es (.*)'),'mucho gusto {0}, a que equipo le vas'),
+    (re.compile(r'me llamo (.*)'),'mucho gusto {0}'),
+    (re.compile(r'.*america.*'),'fuchi, que haces'),
+    (re.compile(r'.*pumas.*'),'no tal mal, que haces'),
+    (re.compile(r'.*toluca.*'),'muy bien, que haces'),
+    (re.compile(r'nada'),'como pez en el agua'),
+    (re.compile(r'trabajando'),'en que trabajas'),
 ]
 
 command_grammar = nltk.CFG.fromstring("""
